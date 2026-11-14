@@ -1,0 +1,230 @@
+:root {
+  --green-900: #0f3d2e;
+  --green-700: #1b6b4a;
+  --green-100: #eaf4ef;
+  --gold: #f2b705;
+  --red: #b3261e;
+  --text: #1c2421;
+  --muted: #66726c;
+  --line: #dfe5e2;
+  --bg: #f6f8f7;
+  --card: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.45;
+}
+
+.wrap { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+
+/* Header */
+.site-header {
+  background: #fff;
+  border-bottom: 4px solid var(--gold);
+  box-shadow: 0 1px 0 var(--green-900);
+  padding: 18px 0;
+}
+.header-inner { display: flex; gap: 16px; align-items: center; }
+.head-text { flex: 1; min-width: 0; }
+.logo { height: 84px; width: auto; flex: none; }
+.badge span { display: block; color: var(--muted); font-weight: 400; margin-top: 2px; }
+.site-header h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 1.6rem; color: var(--green-900); }
+.site-header .sub { margin: 4px 0 0; color: var(--muted); font-size: .9rem; }
+.site-header .title { margin: 6px 0 0; font-weight: 700; color: var(--green-700); }
+.badge { color: var(--red); font-weight: 700; font-size: .85rem; text-align: right; white-space: nowrap; align-self: flex-start; }
+
+/* Dashboard */
+.dashboard {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.card.big { background: var(--green-900); color: #fff; border-color: var(--green-900); }
+.card .label { font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; opacity: .8; }
+.card .value { font-size: 2.6rem; font-weight: 700; line-height: 1.1; }
+.card .value.small { font-size: 1.5rem; color: var(--green-900); }
+.card .hint { font-size: .85rem; opacity: .85; }
+
+/* Info */
+.info {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.info label { display: flex; flex-direction: column; font-size: .8rem; color: var(--muted); gap: 4px; }
+.info input {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 6px 2px;
+  font-size: 1rem;
+  background: transparent;
+  color: var(--text);
+}
+.info input:focus { outline: none; border-bottom-color: var(--green-700); }
+
+/* Toolbar */
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin: 18px 0 8px; }
+.tip { margin: 0; color: var(--muted); font-size: .88rem; flex: 1 1 320px; }
+.buttons { display: flex; gap: 8px; }
+.btn {
+  border: 1px solid var(--green-700);
+  background: #fff;
+  color: var(--green-700);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: .9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn:hover { background: var(--green-100); }
+.btn.danger { border-color: var(--red); color: var(--red); }
+.btn.danger:hover { background: #fdeceb; }
+
+/* Semester blocks */
+.semester {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin: 16px 0;
+  overflow: hidden;
+}
+.sem-head {
+  background: var(--green-900);
+  color: #fff;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.sem-head h3 { margin: 0; font-size: 1.05rem; }
+.sem-head .meta { font-size: .9rem; font-weight: 600; }
+.sem-actions { display: flex; gap: 8px; }
+.sem-head .pdfbtn {
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  color: var(--green-900);
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: .78rem;
+  cursor: pointer;
+}
+.sem-head .pdfbtn:hover { filter: brightness(.95); }
+.sfoot { padding: 9px 16px; font-size: .9rem; color: var(--green-900); border-top: 1px solid var(--line); text-align: right; }
+.sem-head .clear {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.5);
+  color: #fff;
+  border-radius: 6px;
+  padding: 3px 9px;
+  font-size: .78rem;
+  cursor: pointer;
+}
+.sem-head .clear:hover { background: rgba(255,255,255,.15); }
+
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { background: var(--green-100); font-size: .82rem; color: var(--green-900); }
+td.title-cell { white-space: normal; min-width: 220px; }
+th.num, td.num { text-align: right; }
+td.code { color: var(--muted); }
+tr.fail td { background: #fdf1f0; }
+tfoot td { font-weight: 700; background: var(--green-100); border-bottom: 0; color: var(--green-900); }
+
+td select {
+  width: 84px;
+  padding: 5px 6px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: .9rem;
+  background: #fff;
+  color: var(--text);
+}
+td select:focus { outline: 2px solid var(--green-700); outline-offset: 0; }
+td.lg { font-weight: 700; color: var(--green-900); }
+
+/* Editable elective code and name */
+td input.ed {
+  width: 92px;
+  padding: 4px 6px;
+  border: 1px dashed #9db8ab;
+  border-radius: 6px;
+  font-size: .9rem;
+  font-family: inherit;
+  color: var(--text);
+  background: #fbfdfc;
+}
+td input.ed-title { width: 100%; min-width: 220px; }
+td input.ed:focus { outline: 2px solid var(--green-700); border-style: solid; }
+
+/* Summary / scale */
+.summary, .scale {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  margin: 20px 0;
+}
+.summary h2, .scale h2 { margin: 0 0 10px; font-size: 1.1rem; color: var(--green-900); }
+.summary tr.year td, .summary tr.cum td { font-weight: 700; background: var(--green-100); }
+.summary tr.cum td { background: var(--green-900); color: #fff; }
+.note { color: var(--muted); font-size: .82rem; margin: 10px 0 0; }
+
+.site-footer { text-align: center; color: var(--muted); font-size: .82rem; padding: 24px 0 36px; }
+
+/* Responsive */
+@media (max-width: 800px) {
+  .dashboard { grid-template-columns: 1fr 1fr; }
+  .card.big { grid-column: 1 / -1; }
+  .info { grid-template-columns: 1fr 1fr; }
+  .site-header h1 { font-size: 1.25rem; }
+  .header-inner { flex-wrap: wrap; }
+  .logo { height: 64px; }
+  .badge { text-align: left; }
+}
+@media (max-width: 480px) {
+  .info { grid-template-columns: 1fr; }
+}
+
+/* Print */
+@media print {
+  body { background: #fff; }
+  .toolbar, .sem-actions { display: none; }
+  /* One-semester PDF: show only the chosen semester under the official header and student details */
+  body.print-one .semester:not(.print-target),
+  body.print-one .dashboard,
+  body.print-one .summary,
+  body.print-one .scale { display: none; }
+  body.print-one .semester { margin: 20px 0; }
+  /* Full PDF: start each year on a new page */
+  body.print-all #sem-y2s1, body.print-all #sem-y3s1, body.print-all #sem-y4s1 { break-before: page; }
+  td input.ed { border: 0; background: transparent; padding: 0; width: 100%; }
+  td input.ed::placeholder { color: inherit; }
+  .sfoot { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .semester, .summary, .scale, .card, .info { break-inside: avoid; box-shadow: none; }
+  td select { border: 0; background: transparent; appearance: none; -webkit-appearance: none; width: auto; padding: 0; }
+  .card.big, .sem-head, .summary tr.cum td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
