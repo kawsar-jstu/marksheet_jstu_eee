@@ -262,7 +262,7 @@
           "</td><td class='n'>" + fmt2(c[2]) + "</td><td class='n'>" + (g ? g.letter : "") + "</td><td class='n'>" + (g ? g.gp.toFixed(2) : "") + "</td></tr>";
       }).join("");
       var first = /1st/.test(sem.name.split("Year")[1]);
-      var title = sem.year + ordinal(sem.year) + " YEAR / " + (/1st/.test(sem.name.split("Year")[1]) ? "1ST" : "2ND") + " SEMESTER";
+      var title = sem.name;
       return "<div class='tsem'><div class='sh'>" + title + "</div><table>" +
         "<thead><tr><th>Course No.</th><th class='t'>Course Title</th><th class='n'>Cr. Hr.</th><th class='n'>Grade</th><th class='n'>GP</th></tr></thead>" +
         "<tbody>" + rows + "</tbody></table>" +
