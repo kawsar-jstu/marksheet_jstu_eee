@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JSTU EEE Marksheet</title>
+  <meta name="description" content="Semester-wise marksheet and CGPA for B.Sc. Engg. in Electrical and Electronic Engineering, Jamalpur Science & Technology University.">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <img class="logo" src="logo.png" alt="Jamalpur Science &amp; Technology University emblem" width="84" height="75">
+      <h1>Jamalpur Science &amp; Technology University</h1>
+      <p class="sub">Faculty of Engineering<br>Department of Electrical and Electronic Engineering</p>
+      <p class="semline">B.Sc. Engg. in Electrical and Electronic Engineering</p>
+      <div class="rsbar">Result Sheet</div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Result dashboard -->
+    <section class="dashboard" aria-label="Result overview">
+      <div class="card big">
+        <span class="label">Cumulative CGPA</span>
+        <span class="value" id="cgpaValue">-</span>
+        <span class="hint" id="cgpaClass">Select GP to begin</span>
+      </div>
+      <div class="card">
+        <span class="label">Graded credits</span>
+        <span class="value small" id="totalCredits">0.00</span>
+      </div>
+      <div class="card">
+        <span class="label">Weighted points</span>
+        <span class="value small" id="totalPoints">0.00</span>
+      </div>
+      <div class="card">
+        <span class="label">Failed credits (F)</span>
+        <span class="value small" id="failedCredits">0.00</span>
+      </div>
+    </section>
+
+    <!-- Student info -->
+    <section class="info" aria-label="Student information">
+      <label>Student name <input type="text" id="stName" autocomplete="off"></label>
+      <label>Student ID or roll <input type="text" id="stId" autocomplete="off"></label>
+      <label>Session <input type="text" id="stSession" placeholder="e.g. 2022-23" autocomplete="off"></label>
+      <label>Batch <input type="text" id="stBatch" autocomplete="off"></label>
+    </section>
+
+    <section class="toolbar">
+      <p class="tip">Select the GP for each course. Grade and points fill in automatically.</p>
+      <div class="buttons">
+        <button type="button" id="btnPrint" class="btn">Download transcript PDF</button>
+        <button type="button" id="btnReset" class="btn danger">Reset all</button>
+      </div>
+    </section>
+
+    <div id="semesters"></div>
+
+    <!-- Summary -->
+    <section class="summary" aria-label="Result summary">
+      <h2>Result summary</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Semester</th><th class="num">Credits</th><th class="num">GPA</th><th class="num">Weighted points</th></tr>
+          </thead>
+          <tbody id="summaryBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Grading scale -->
+    <section class="scale" aria-label="Grading scale">
+      <h2>JSTU EEE grading scale</h2>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Letter</th><th class="num">Grade point</th><th class="num">Marks</th></tr></thead>
+          <tbody id="scaleBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- One-page A4 transcript (shown only when printing the full PDF) -->
+  <div id="transcript" aria-hidden="true"></div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Unofficial student copy. Verify final results against official university records.</p>
+      <div class="dev-card">
+        <span class="dev-label">Developed By</span>
+        <p class="dev">Kawsar Alam</p>
+        <p class="dev-line">Jamalpur Science &amp; Technology University (JSTU)</p>
+        <p class="dev-line">Department of Electrical and Electronic Engineering (EEE)</p>
+        <p class="dev-line">Session: 2024-25</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
