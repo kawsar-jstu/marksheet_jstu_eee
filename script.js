@@ -273,7 +273,7 @@
       var showY = yearDone;
       var showC = i >= 1 && prefixDone;
       return "<div class='tsem'><div class='sh'>" + title + "</div><table>" +
-        "<thead><tr><th>Course No.</th><th class='t'>Course Title</th><th class='n'>Cr. Hr.</th><th class='n'>Grade</th><th class='n'>GP</th></tr></thead>" +
+        "<thead><tr><th>Course No.</th><th class='t'>Course Title</th><th class='n'>Credit</th><th class='n'>Grade</th><th class='n'>GP</th></tr></thead>" +
         "<tbody>" + rows + "</tbody></table>" +
         "<div class='sres'><div>SGPA: <b>" + (r.gpa === null ? "-" : fmt2(r.gpa)) + "</b></div>" +
         (showY ? "<div>YGPA: <b>" + fmt2(y.points / y.credits) + "</b></div>" : "") +
