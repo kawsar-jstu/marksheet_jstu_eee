@@ -245,14 +245,16 @@
     var one = semId ? SEMESTERS.filter(function (x) { return x.id === semId; })[0] : null;
     var shown = one ? [one] : (done.length ? done : SEMESTERS.slice(0, 1));
     var stop = false;
-    var running = { credits: 0, points: 0 };
+    var running = { credits: 0, points: 0, sems: 0 };
     var yr = {};
-    var blocks = SEMESTERS.map(function (sem) {
+    var rs = SEMESTERS.map(function (x) { return compute(x.courses); });
+    var blocks = SEMESTERS.map(function (sem, i) {
       if (stop) return "";
       var r = compute(sem.courses);
       var y = yr[sem.year] || (yr[sem.year] = { credits: 0, points: 0 });
       y.credits += r.credits; y.points += r.points;
       running.credits += r.credits; running.points += r.points;
+      if (r.credits > 0) running.sems++;
       cum.credits += r.credits; cum.points += r.points; cum.failed += r.failed;
       if (one && sem === one) stop = true;   // single-semester PDF: CGPA counts up to this semester only
       if (shown.indexOf(sem) < 0) return "";
@@ -261,15 +263,25 @@
         return "<tr" + (g && g.letter === "F" ? " class='f'" : "") + "><td class='cn'>" + esc(courseText(c, "code")) + "</td><td class='t'>" + esc(courseText(c, "title")) +
           "</td><td class='n'>" + fmt2(c[2]) + "</td><td class='n'>" + (g ? g.letter : "") + "</td><td class='n'>" + (g ? g.gp.toFixed(2) : "") + "</td></tr>";
       }).join("");
-      var first = /1st/.test(sem.name.split("Year")[1]);
       var title = sem.name;
+      // Rules: SGPA for every semester.
+      // YGPA only on a 2nd semester, and only when that year's 1st semester also has a result.
+      // CGPA when every semester from 1st Year 1st up to this one has a result (at least 2 semesters).
+      var second = /2nd/.test(sem.name.split("Year")[1]);
+      var yearDone = second && i > 0 && rs[i].credits > 0 && rs[i - 1].credits > 0;
+      var prefixDone = rs.slice(0, i + 1).every(function (x) { return x.credits > 0; });
+      var showY = yearDone;
+      var showC = i >= 1 && prefixDone;
       return "<div class='tsem'><div class='sh'>" + title + "</div><table>" +
         "<thead><tr><th>Course No.</th><th class='t'>Course Title</th><th class='n'>Cr. Hr.</th><th class='n'>Grade</th><th class='n'>GP</th></tr></thead>" +
         "<tbody>" + rows + "</tbody></table>" +
         "<div class='sres'><div>SGPA: <b>" + (r.gpa === null ? "-" : fmt2(r.gpa)) + "</b></div>" +
-        (first ? "" : "<div>YGPA: <b>" + (y.credits > 0 ? fmt2(y.points / y.credits) : "-") + "</b></div>") +
-        (sem.id === "y1s1" ? "" : "<div>CGPA: <b>" + (running.credits > 0 ? fmt2(running.points / running.credits) : "-") + "</b></div>") + "</div></div>";
+        (showY ? "<div>YGPA: <b>" + fmt2(y.points / y.credits) + "</b></div>" : "") +
+        (showC ? "<div>CGPA: <b>" + fmt2(running.points / running.credits) + "</b></div>" : "") + "</div></div>";
     }).join("");
+    var lastIdx = -1;
+    if (one) { lastIdx = SEMESTERS.indexOf(one); } else { rs.forEach(function (x, j) { if (x.credits > 0) lastIdx = j; }); }
+    var headerCgpa = lastIdx >= 1 && rs.slice(0, lastIdx + 1).every(function (x) { return x.credits > 0; });
     var cgpa = cum.credits > 0 ? fmt2(cum.points / cum.credits) : "-";
     var scale = SCALE.map(function (s) {
       return "<tr><td>" + s.label + "</td><td>" + s.letter + "</td><td>" + s.gp.toFixed(2) + "</td></tr>";
@@ -287,7 +299,7 @@
       "<div><span>Batch</span>: " + esc(info.batch || "") + "</div>" +
       (one ? "" : "<div><span>Semesters completed</span>: " + done.length + " of " + SEMESTERS.length + "</div>") +
       "<div><span>Total credits</span>: " + fmt2(cum.credits) + (cum.failed > 0 ? " (failed " + fmt2(cum.failed) + ")" : "") + "</div>" +
-      (one && one.id === "y1s1" ? "" : "<div class='tcg'><span>Cumulative Grade Point Average (CGPA) earned</span>: <b>" + cgpa + "</b></div>") + "</div>" +
+      (!headerCgpa ? "" : "<div class='tcg'><span>Cumulative Grade Point Average (CGPA) earned</span>: <b>" + cgpa + "</b></div>") + "</div>" +
       "<div class='tgs'><div class='gt'>GRADING SYSTEM</div><table><tr><th>Numerical Equivalent</th><th>Letter Grade</th><th>Grade Point</th></tr>" + scale + "</table></div></div>" +
       "<div class='tgrid'>" + blocks + "</div>" +
       "<div class='tfoot'>" +
